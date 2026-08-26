@@ -1,0 +1,60 @@
+import allure
+from urls import Urls
+from pages.main_page import MainPage
+from pages.auth_user_page import AuthUserPage
+
+class TestMainPage:
+
+    @allure.title('При нажатии кнопки "Лента заказов" совершается переход на страницу заказов')
+    @allure.description('При нажатии в header кнопки "Лента заказов" происходит редирект на страницу со всеми заказами')
+    def test_redirection_to_order_list(self, driver):
+        main_page = MainPage(driver)
+        main_page.click_orders_list_button()
+        current_url = main_page.get_current_url()
+        assert current_url == Urls.url_feed
+
+    @allure.title('При нажатии кнопки "Конструктор" совершается переход на страницу сбора бургера')
+    @allure.description('При нажатии в header кнопки "Конструктор" происходит редирект на страницу со всеми заказами')
+    def test_go_to_constructor(self, driver):
+        main_page = MainPage(driver)
+        main_page.click_constructor_button()
+        current_url = main_page.get_current_url()
+        assert current_url == Urls.url_main
+
+    @allure.title('При нажатии на ингредиент всплывает окно с информацией')
+    @allure.description('При нажатии на ингредиент всплывает модальное окно с информацией об ингредиенте')
+    def test_popup_of_ingredient(self, driver):
+        main_page = MainPage(driver)
+        main_page.click_on_ingredient()
+        actually_text = main_page.check_show_window_with_details()
+        assert actually_text == "Детали ингредиента"
+
+    @allure.title('При нажатии в модальном окне с информацией об ингредиенте на крестик, окно закрывается')
+    @allure.description('Нажимает на крестик в правом верхнем углу окна и проверяет, что всплывающее окно закрылось')
+    def test_close_ingredient_details_window(self, driver):
+        main_page = MainPage(driver)
+        main_page.click_on_ingredient()
+        main_page.click_cross_button()
+        main_page.invisibility_ingredient_details()
+        assert main_page.check_displayed_ingredient_details() == False
+
+    @allure.title('При добавлении ингредиента в заказ, счетчик увеличивается')
+    @allure.description('Проверяем, что после добавления ингредиента счетчик ингредента сменился')
+    def test_ingredient_counter(self, driver):
+        main_page = MainPage(driver)
+        prev_counter_value = main_page.get_count_value()
+        main_page.add_filling_to_order()
+        actual_value = main_page.get_count_value()
+        assert actual_value == prev_counter_value
+
+    @allure.title('Проверка возможности оформления заказа авторизованным пользователем')
+    @allure.description('Нажимаем кнопку «Оформить заказ» и проверяем, что заказ оформлен и появился идентификатор заказа')
+    def test_successful_order(self, driver, create_user):
+        auth_user_page = AuthUserPage(driver)
+        auth_user_page.login(create_user[0])
+        main_page = MainPage(driver)
+        main_page.add_filling_to_order()
+        main_page.click_order_button()
+        actually_text = main_page.check_show_window_with_order_id()
+        assert actually_text == "идентификатор заказа"
+        assert main_page.check_displayed_order_status_text() == True
