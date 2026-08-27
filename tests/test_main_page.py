@@ -45,7 +45,7 @@ class TestMainPage:
         prev_counter_value = main_page.get_count_value()
         main_page.add_filling_to_order()
         actual_value = main_page.get_count_value()
-        assert actual_value == prev_counter_value
+        assert actual_value > prev_counter_value
 
     @allure.title('Проверка возможности оформления заказа авторизованным пользователем')
     @allure.description('Нажимаем кнопку «Оформить заказ» и проверяем, что заказ оформлен и появился идентификатор заказа')

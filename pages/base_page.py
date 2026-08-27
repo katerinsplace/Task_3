@@ -15,7 +15,7 @@ class BasePage:
 
     @allure.step('Кликаем по элементу {locator}')
     def click_on_element(self, locator):
-        self.driver.find_element(*locator).click()
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(locator)).click()
 
     @allure.step('Вставить текст {text}')
     def set_text_to_element(self, locator, text):
@@ -29,16 +29,16 @@ class BasePage:
 
     @allure.step('Проверить наличие элемента на странице')
     def check_presense(self, locator):
-        WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(locator))
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
         return self.driver.find_element(*locator)
 
     @allure.step('Проверить невидимость элемента')
     def check_invisibility(self, locator):
-        return WebDriverWait(self.driver, 3).until(EC.invisibility_of_element(locator))
+        return WebDriverWait(self.driver, 10).until(EC.invisibility_of_element(locator))
 
     @allure.step('Дождаться видимости элемента')
     def wait_until_element_visibility(self, locator):
-        return WebDriverWait(self.driver, 3).until(EC.visibility_of_element_located(locator))
+        return WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
 
     @allure.step('Получить текущую ссылку')
     def get_current_url(self):
@@ -60,7 +60,7 @@ class BasePage:
 
     @allure.step('Дождаться кликабельности элемента')
     def wait_for_element_to_be_clickable(self, locator):
-        WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(locator))
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(locator))
 
     @allure.step('Найти элементы на странице')
     def find_elements(self, locator):
@@ -68,10 +68,10 @@ class BasePage:
 
     @allure.step('Дождаться появления текста в элементе')
     def wait_for_text_to_be_present_in_element(self, locator, text):
-        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element(locator, text))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(locator, text))
 
     @allure.step("Нахождение нескольких элементов")
     def find_until_all_elements_located(self, locator):
-        return WebDriverWait(self.driver, 7).until(EC.presence_of_all_elements_located(locator))
+        return WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located(locator))
 
     

@@ -2,21 +2,23 @@ from selenium.webdriver.common.by import By
 
 
 class MainPageLocators:
-    PROFILE_BUTTON = By.XPATH, ".//p[text()='Личный Кабинет']"
+    PROFILE_BUTTON = By.CSS_SELECTOR, "a[href='/account']"
     LOGIN_PROFILE_BUTTON = By.XPATH, ".//button[text()='Войти в аккаунт']"
     CONSTRUCTOR_BUTTON = By.XPATH, '//p[text()="Конструктор"]/parent::a'
     MAIN_LIST_TITLE = By.XPATH, "//h1[text()='Соберите бургер']"
     ORDERS_LIST_BUTTON = By.XPATH, '//p[text()="Лента Заказов"]/parent::a'
-    BUN_INGREDIENT = (By.XPATH, '//p[text()="Флюоресцентная булка R2-D3"]')  # Ингредиент "Флюоресцентная булка R2-D3"
+    BUN_INGREDIENT = (By.CLASS_NAME, "BurgerIngredient_ingredient__text__yp3dH")
     INGREDIENT_DETAILS_POPUP = (By.XPATH, '//h2[text()="Детали ингредиента"]')  # Детали ингредиента
     CROSS_BUTTON = By.XPATH, '//button[contains(@class,"close")]'  # закрытие всплывающего окна
-    INGREDIENT_COUNTER = (By.XPATH, '//ul[1]/a[1]//p[contains(@class, "num")]')  # Счетчик
+    INGREDIENT_COUNTER = (By.CLASS_NAME, "counter_counter__num__3nue1")  # Счетчик
     ORDER_BASKET = (By.XPATH, "//span[@class='constructor-element__text' and text()='Перетяните булочку сюда (низ)']")
     CREATE_ORDER_BUTTON = By.XPATH, '//button[text()="Оформить заказ"]'  # кнопка "Оформить заказ"
     ORDER_IDENTIFICATE = (By.XPATH, '//p[text()="идентификатор заказа"]')  # Идентификатор заказа
     ORDER_ID = (By.CLASS_NAME, "Modal_modal__title_shadow__3ikwq")
     LOADING_CHECK_BOX = (By.XPATH, ".//img[@alt='tick animation']")
     ORDER_STATUS_TEXT = By.XPATH, '//p[text()="Ваш заказ начали готовить"]'  # Ваш заказ начали готовить в попапе
+    ELEM_MODAL_WINDOW = (By.CSS_SELECTOR, 'div[class^="Modal_modal_overlay__"]')
+    MODAL_OVERLAY = (By.CSS_SELECTOR, 'div[class*="Modal_modal_overlay"]')
     CLOSE_MODAL_ORDER = (By.XPATH, "//button[contains(@class, 'Modal_modal__close')][1]")
     MAIN_ORDER_H1 = By.XPATH, ".//p[text()='Соберите бургер']"
 

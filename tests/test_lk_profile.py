@@ -12,6 +12,7 @@ class TestLKProfile:
         auth_user_page = AuthUserPage(driver)
         auth_user_page.login(create_user[0])
         main_page = MainPage(driver)
+
         main_page.click_on_account()
         user_profile_page = UserProfilePage(driver)
         current_url = user_profile_page.check_switch_on_profile()
@@ -23,6 +24,7 @@ class TestLKProfile:
         auth_user_page = AuthUserPage(driver)
         auth_user_page.login(create_user[0])
         main_page = MainPage(driver)
+
         main_page.click_on_account()
         user_profile_page = UserProfilePage(driver)
         user_profile_page.click_order_history_button()

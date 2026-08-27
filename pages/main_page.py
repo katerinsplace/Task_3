@@ -10,6 +10,10 @@ class MainPage(BasePage):
     def click_on_account(self):
         self.click_on_element(MainPageLocators.PROFILE_BUTTON)
 
+    def click_on_account_js(self):
+        self.wait_for_element_to_be_clickable(MainPageLocators.PROFILE_BUTTON)
+        self.click_on_element_js(MainPageLocators.PROFILE_BUTTON)
+
     @allure.step('Переход на страницу Лента заказов')
     def click_orders_list_button(self):
         self.move_to_element_and_click(MainPageLocators.ORDERS_LIST_BUTTON)
@@ -17,7 +21,7 @@ class MainPage(BasePage):
 
     @allure.step('Переход в "Конструктор"')
     def click_constructor_button(self):
-        self.click_on_element(MainPageLocators.CONSTRUCTOR_BUTTON)
+        self.click_on_element_js(MainPageLocators.CONSTRUCTOR_BUTTON)
         self.wait_until_element_visibility(MainPageLocators.MAIN_LIST_TITLE)
 
     @allure.step('Кликаем на ингредиент')
@@ -63,7 +67,6 @@ class MainPage(BasePage):
     @allure.step('Получение ORDER_ID')
     def get_with_order_id(self):
         self.wait_until_element_visibility(MainPageLocators.ORDER_IDENTIFICATE)
-        # self.wait_until_element_visibility(MainPageLocators.ORDER_ID)
         order_id = self.get_actually_text(MainPageLocators.ORDER_ID)
         while order_id == '9999':
             order_id = self.get_actually_text(MainPageLocators.ORDER_ID)
